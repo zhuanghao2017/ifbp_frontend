@@ -6,8 +6,8 @@ var proxyDemoHost = 'http://localhost:8080';
 
 
 // var baseHost = 'http://10.4.102.57:38081';
-// var baseHost = 'http://testap.imfbp.com';
-var baseHost = 'https://pre.ap.imfbp.com';
+ var baseHost = 'http://testap.imfbp.com';
+//var baseHost = 'https://pre.ap.imfbp.com';
 
 // var baseHost = 'http://10.3.1.141';
 
