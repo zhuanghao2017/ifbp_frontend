@@ -2,7 +2,7 @@
 var path = require('path')
 
 //demo服务
-var proxyDemoHost = 'http://localhost:8090';
+var proxyDemoHost = 'http://localhost:8080';
 
 
 // var baseHost = 'http://10.4.102.57:38081';
