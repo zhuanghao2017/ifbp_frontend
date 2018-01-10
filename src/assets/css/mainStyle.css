@@ -1,0 +1,150 @@
+.font_default{ font-size: 14px; color: #393C3E; font-family: 'ArialMT', 'Arial', 'PingFangSC-Regular'; font-weight: 400; font-style: normal; line-height: normal;}
+.dashed{ height: 1px; width: inherit; }
+.dashed img{ height: 2px; width: inherit; position: absolute; }
+
+/* backgound-color */
+.bg-green-light{ background-color: #72C11C; }
+.bg-green-dark{  }
+
+/****************** fix Element UI css ********************/
+
+.el-button--large{ height: 44px; }
+/* success button bg-color */
+.el-button--success{ background-color: #72C11C; border-color: #72C11C; }
+.el-button--success:focus, .el-button--success:hover{ background-color:#5CA012; border-color: #72C11C; }
+/* input append prepend bg-color */
+.el-input-group__append, .el-input-group__prepend{ background-color: #F5F8FA; }
+
+.ifbp-panel{
+    background-color: #FFF;
+    margin: 10px;
+    padding:10px;
+}
+
+@media screen and (max-width: 300px) {
+  .logo .title {
+    display: none;
+  }
+}
+
+/* 大屏幕 */
+@media (min-width: 1200px) {
+
+}
+
+/* 平板电脑和小屏电脑之间的分辨率 */
+@media (min-width: 768px) and (max-width: 979px) {
+}
+
+/* 横向放置的手机和竖向放置的平板之间的分辨率 */
+@media (max-width: 767px) {
+  .logo .title {
+    display: none !important;
+  }
+  .mdlayout-master {
+    position: absolute !important;
+    left: -320px;
+    z-index: 10;
+  }
+  .mdlayout-header-func i {
+    display: inline-block !important;
+  }
+  .tree-mdlayout-master {
+    position: absolute !important;
+    left: -320px;
+    z-index: 10;
+  }
+  .tree-mdlayout-header-func i {
+    display: inline-block !important;
+  }
+  .headerMenu .menuHeaderExpandbox {
+    width: 98% !important;
+    min-width: 320px !important;
+  }
+  .header .logo img {
+    margin-left: 0px !important;
+  }
+
+}
+
+
+@media (max-width: 748px) {
+  /* 隐藏logo */
+  .header .logo a{
+    display: none !important;
+  }
+  header .logo a+i.shotcut {
+    margin-left: 12px !important;
+  }
+}
+
+/* 横向放置的手机及分辨率更小的设备 */
+@media (max-width: 480px) {
+  /* .header .logo {
+    padding-left:
+  } */
+  /* .header .person-set {
+    width: 100% !important;
+  } */
+  .mdlayout-master {
+    position: absolute !important;
+    left: -320px;
+    z-index: 10;
+  }
+  .mdlayout-header-func i {
+    display: inline-block !important;
+  }
+  .tree-mdlayout-master {
+    position: absolute !important;
+    left: -320px;
+    z-index: 10;
+  }
+  .tree-mdlayout-header-func i {
+    display: inline-block !important;
+  }
+  .menuHeaderExpandbox .expand-box-container {
+    width: 100% !important;
+    min-width: 320px !important;
+  }
+  .headerMenu .menuHeaderExpandbox .left {
+    position: absolute !important;
+    left: -323px;
+  }
+  .headerMenu .menuHeaderExpandbox .right {
+    width: 100% !important;
+  }
+  .menuHeaderExpandbox .expand-box-header .showLeftBtn {
+    display: block !important;
+  }
+  ul.user-component li {
+    display: none ;
+  }
+  ul.user-component li.user {
+    display: block ;
+  }
+}
+/*@media (max-width: 450px) {
+  .card-box {
+    padding: 0 calc((100% - 320px)/2);
+  }
+  .card-box .card.tile {
+    width: 145px !important;
+    height: 110px !important;
+    margin: 7px !important;
+  }
+  .card-box .card.tile .card-title {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+  .card-box .card.tile .appIcon.iconfont {
+    font-size: 40px;
+  }
+}*/
+@media (min-width: 768px) {
+  .mdlayout-master {
+    left: 0 !important;
+  }
+  .tree-mdlayout-master {
+    left: 0 !important;
+  }
+}

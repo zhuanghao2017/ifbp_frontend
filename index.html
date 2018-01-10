@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="stylesheet" href="apworkbench/trd/uui/css/u.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="apworkbench/trd/uui/css/tree.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="apworkbench/trd/uui/css/grid.css" media="screen" title="no title" charset="utf-8">
+
+  <!-- <link rel="stylesheet" href="/trd/ifbp-element/theme-default/index.css"> -->
+
+  <link rel="stylesheet" href="trd/swiper/swiper-3.3.1.min.css">
+  <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
+
+  <!--   <link rel="stylesheet" href="//design.yyuap.com/static/uui/3.0.6/css/u.css">
+        <link rel="stylesheet" type="text/css" href="//design.yyuap.com/static/uui/3.0.6/css/grid.css">
+        -->
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="trd/bootstrap/css/bootstrap.min.css">
+  <link href="apworkbench/css/assets/workbench_common.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
+  <!-- <link href="apworkbench/trd/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" rel="stylesheet"> -->
+  <title>链融云-构建生态金融</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script src="trd/jquery/jquery-1.11.2.min.js"></script>
+  <script src="trd/knockout/knockout-3.2.0.debug.js"></script>
+  <script src="trd/common.js"></script>
+  <script src="apworkbench/trd/uui/js/u.js"></script>
+  <script src="apworkbench/trd/uui/js/u-polyfill.js"></script>
+  <script src="apworkbench/trd/uui/js/u-grid.js"></script>
+  <script src="apworkbench/trd/uui/js/u-tree.js"></script>
+  <script src="./components/viewutil.js"></script>
+  <!-- <script src="trd/vue/vue.js"></script>
+     <script src="trd/vue/vue-router.js"></script>
+     <script src="trd/vue/vuex.js"></script> -->
+  <script src="trd/requirejs/require.debug.js"></script>
+  <script src="apworkbench/js/requireConfig.js"></script>
+  <script type="text/javascript">
+    var theme = 'default';
+    if (u.getCookie('ifbp-theme')) {
+      theme = u.getCookie('ifbp-theme')
+    }
+    var module = 'css!' + 'trd/ifbp-element/theme-' + theme + '/index.css';
+    require([module])
+  </script>
+</body>
+
+</html>

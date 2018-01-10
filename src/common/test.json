@@ -1,0 +1,10 @@
+{
+"data":[
+  {"name": "zhou1", 
+    "material": {"toggle": false, "goods": "库存信息", "lent": 1000, "borrower": 2567.07, "client":[1,2,3]}},
+  {"name": "zhou2",
+    "material":
+    [{"toggle": false, "goods": "2001库存现金", "lent": 2000.89, "borrower": 3004, "client":[1,2,3]},
+    {"toggle": false, "goods": "2002库存信息", "lent": 3000.12, "borrower": 4004.40, "client":[1,2,3]}]},
+  {"name": "zhou3","toggle":false}]
+}

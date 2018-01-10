@@ -1,0 +1,459 @@
+require([
+	'jquery',
+	'dialog',
+	'cookieOperation',
+	'css!apworkbench/css/widgetlist.css'
+], function($) {
+	var dialog = require('dialog');
+	var cookieOperation = require('cookieOperation');
+	var allApps;
+	var appName;
+	var ROLEID;
+
+	//修改样式
+	modeCss();
+	//查询所有的分组和小应用
+	littleAppDisplayAndSelect();
+	//根据用户查询所有的应用信息，并将用户的信息按照一定的json格式传递到allApps的变量中
+	getAppsByUser();
+	//用户的应用状态是否选中
+	isCheck();
+	//根据用户获得所有的分组
+	getGroups();
+	//做一下代理
+	//dialog配置及显示
+	cliButton();
+	//返回
+	goBack();
+	//获得所有的领域
+	getAreas();
+	//根据appName查询
+	queryByAppName();
+	$('.zsfacc').click(function() {
+		$(this).parent('.checkbutton').find('.zselectbutton').click();
+	})
+	// //点击授权,跳转至分配app页面,显示下拉框中的分组列表
+	function getGroups() {
+		var userId = cookieOperation.get("_A_P_userId");
+		var url = "/workbench/apEditGroups/group?userId=" + userId;
+		$.ajax({
+			url: url,
+			async: false,
+			dataType: "json",
+			type: "get",
+			contentType: "application/json",
+			success: function(rtn) {
+				var str = [];
+				str.push("<option selected value='all'>全部分组</option>");
+				$.each(rtn,
+				function(i, item) {
+					str.push('<option value="' + item.id + '">' + item.name + '</option>');
+					$("#group-menu").html(str.join(" "));
+				});
+			},
+			error: function(rtn) {
+				alert("加载分组列表出错！");
+			}
+		});
+	}
+
+	// little app 的展示列表
+	function littleAppDisplayAndSelect() {
+		var userId = cookieOperation.get("_A_P_userId");
+		var url = "/workbench/apEditGroups/listWithGroup?userId=" + userId;
+		$.ajax({
+			url: url,
+			dataType: "json",
+			async: false,
+			type: "get",
+			contentType: "application/json",
+			success: function(rtn) {
+				var str = [];
+				$("#group_list").empty();
+				$.each(rtn,
+				function(i, item) {
+					str.push('<div class="container-fluid"><div class="row row-fluid outrow">' + '<div class="col-sm-6 col-lg-3 outrowtitle">' + i + '</div></div>' + getItem(item) + '</div>'
+
+					);
+				});
+				$("#group_list").append(str);
+			},
+			error: function(rtn) {
+				alert("获取小应用列表失败！");
+			}
+		});
+	}
+
+	function getItem(item) {
+		var length = item.length;
+		var str = '';
+		for (var i = 0; i < length; i++) {
+			str += '<div class="row row-fluid col-sm-3">' + '<label for="' + item[i].appName + '' + i + '"><img src="' + item[i].appIcon + '" alt="' + item[i].appChinese + '" class="imgviget"/></label><div class="checkbutton">' + '<input group=' + item[i].groupId + ' class="zselectbutton" id="' + item[i].appName + '' + i + '" type="button" value="" name="' + item[i].appName + '"><i class="fa zsfacc"></i></div></div>';
+		}
+		return str;
+	}
+	//根据用户的id或得所有的应用信息[{'groupId':'1','groupName','共享服务',groupApps['appa','appb','appc']},]
+	function getAppsByUser() {
+		var userId = cookieOperation.get('_A_P_userId');
+		//var apps = null;
+		var url = "/workbench/apEditGroups/allApps?userId=" + userId;
+		$.ajax({
+			url: url,
+			async: false,
+			dataType: "json",
+			type: "get",
+			contentType: "application/json",
+			success: function(getApps) {
+				allApps = getApps;
+				//alert(allApps);
+			}
+		});
+	}
+
+	//修改样式的方法
+	function modeCss() {
+		$('.content-wrapper.sidebarLeft').css("background-size", "100%");
+		$('.table.table-striped.table-bordered.table-hover').css('background', '#fafafa');
+	}
+	//判断按钮是否是选中状态
+	function isCheck() {
+		$(".zselectbutton").each(function() {
+			var checkFalg = false;
+			var checkI = $(this).parent('.checkbutton').find('i');
+			var appname = $(this).attr('name');
+			for (var i = 0; i < allApps.length; i++) {
+				var apps = allApps[i].groupApps;
+				for (var j = 0; j < apps.length; j++) {
+					if (apps[j] == appname) {
+						checkFalg = true;
+					}
+				}
+			}
+			if (checkFalg) {
+				checkI.removeClass("fa-plus");
+				checkI.addClass("fa-check");
+			} else {
+				checkI.removeClass("fa-check");
+				checkI.addClass("fa-plus");
+			}
+		});
+	}
+
+	//dialog中的配置函数
+	var dialogConfig = {
+		getContent: function(thisButton) {
+			var contentconfig = "";
+			var appName = $(thisButton).attr('name');
+			for (var i = 0; i < allApps.length; i++) {
+				//判断当前点击的应用是否在分组中
+				var isSel = false;
+				var apps = allApps[i].groupApps;
+				for (var j = 0; j < apps.length; j++) {
+					if (appName == apps[j]) {
+						isSel = true;
+					}
+				}
+				if (isSel) {
+					contentconfig += "<input type='checkbox' checked='true' id='" + allApps[i].groupId + "'>" + allApps[i].groupName + "<br/>";
+				} else {
+					contentconfig += "<input type='checkbox' id='" + allApps[i].groupId + "'>" + allApps[i].groupName + "<br/>";
+				}
+			}
+			return contentconfig;
+		},
+		changeBox: function(thisButton) {
+			var appName = $(thisButton).attr('name');
+			$("input[type='checkbox']").on('click',
+			function() {
+				//alert($(this).prop('checked'));
+				//alert(appName);
+				var userId = cookieOperation.get('_A_P_userId');
+				if ($(this).prop('checked') == true) { //需要向这个分组中添加当前应用
+					var ur = "/workbench/apEditGroups/addApp?userId=" + userId + "&groupId=" + $(this).attr('id') + "&appName=" + appName;
+					$.ajax({
+						url: ur,
+						async: false,
+						dataType: "text",
+						type: "get",
+						contentType: "application/json",
+						success: function(e) {
+							if (e == "success") {
+								//根据用户查询所有的应用信息，并将用户的信息按照一定的json格式传递到allApps的变量中
+								getAppsByUser();
+								//用户的应用状态是否选中
+								isCheck();
+							}
+						}
+					});
+				} else {
+					var ur = "/workbench/apEditGroups/deleApp?userId=" + userId + "&groupId=" + $(this).attr('id') + "&appName=" + appName;
+					$.ajax({
+						url: ur,
+						async: false,
+						dataType: "text",
+						type: "get",
+						contentType: "application/json",
+						success: function(e) {
+							if (e == "success") {
+								//根据用户查询所有的应用信息，并将用户的信息按照一定的json格式传递到allApps的变量中
+								getAppsByUser();
+								//用户的应用状态是否选中
+								isCheck();
+							}
+						}
+					});
+				}
+			});
+		}
+	}
+	//点击当前按钮查看当前分组
+	//点击事件的代理点击事件的触发是按照冒泡的顺寻从上一层一直到下一层，代理上一层的代码可以进行过滤只要点击事件是那么触发
+	//dialog显示完成
+	function cliButton() {
+		$('#group_list').on('click', '.zselectbutton', function() {
+			//获得复选框的最初状态
+			var thisButton = this;
+			$(".zselectbutton").css("background", "#dddddd");
+			$(".zselectbutton").next().css("color", "#607d8b");
+			$(this).css("background", "#1fb282");
+			$(this).next().css("color", "#fff");
+			appName = $(thisButton).attr('name');
+			var contentconfig = dialogConfig.getContent(thisButton);
+			dialogConfig.changeBox(thisButton);
+			var d = dialog({
+				id: 'toPdialog',
+				title: '请为应用选择分组',
+				content: contentconfig,
+				cancelValue: '确 定',
+				align: 'right top',
+				height: 150,
+				width: 200,
+				cancel: function() {},
+			});
+			d.show(this);
+			//添加checkbox的改变事件
+			dialogConfig.changeBox(thisButton);
+		});
+	}
+	//返回应用清单
+	function goBack() {
+		$("#toBack").on('click', function() {
+			window.location.href = "#roleapplication";
+		});
+	}
+
+	//获得所有的领域
+	function getAreas() {
+		//点击授权,跳转至分配app页面,显示下拉框中的领域列表
+		var userId = cookieOperation.get('_A_P_userId');
+		$.ajax({
+			url: "/workbench/apEditGroups/area?userId=" + userId,
+			dataType: "json",
+			type: "get",
+			contentType: "application/json",
+			success: function(rtn) {
+				var str = [];
+				str.push("<option selected value='all'>全部领域</option>");
+				$.each(rtn,
+				function(i, item) {
+					str.push('<option value="' + item.id + '">' + item.areaName + '</option>');
+					$('#area-menu').html(str.join(''));
+				});
+			},
+			error: function(rtn) {
+				/*dialog({
+					title: "提示",
+					content: "加载领域下拉列表出错！",
+					cancel: false,
+					ok: function() {}
+				}).show();*/
+			}
+		});
+	}
+	//添加
+	function areaChange(area_id) {
+		AREA_ID = area_id;
+		var userId = cookieOperation.get('_A_P_userId');
+		data = {
+			areaId: area_id,
+			userid: userId
+		};
+		var params = JSON.stringify(data);
+
+		//请求改变分组下拉框
+		changeGroupOnAreaSelect(params);
+		//请求改变显示内容
+		changeContentOnAreaSelect(params);
+
+	}
+
+	//分组下拉框发生改变时的响应事件
+	function groupChange(group_id) {
+		var userId = cookieOperation.get('_A_P_userId');
+		var filters = $('.form-inline.app-select option:selected');
+		var areaId = filters[0].value;
+
+		data = {
+			areaid: areaId,
+			groupId: group_id,
+			userid: userId
+		};
+		var params = JSON.stringify(data);
+		var url = "/workbench/apEditGroups/fiterByGroup";
+		$.ajax({
+			url: url,
+			dataType: "json",
+			data: params,
+			type: "post",
+			contentType: "application/json",
+			success: function(rtn) {
+				var str = [];
+				var value;
+				$("#group_list").empty();
+				$.each(rtn,
+				function(i, item) {
+					value = item;
+					str.push('<div class="container-fluid"><div class="row row-fluid outrow">' + '<div class="col-sm-6 col-lg-3 outrowtitle">' + i + '</div></div>' + getItem(item) + '</div>'
+
+					);
+				});
+				$("#group_list").append(str);
+				isCheck();
+				if (typeof value != "undefined") {
+					getAreaIdByGroup(value[0].groupId);
+				}
+			},
+			error: function(rtn) {
+				/*dialog({
+						title: "提示",
+						content: "分组下拉列表过滤失败！",
+						cancel: false,
+						ok: function() {}
+					}).show();*/
+			}
+		});
+
+	}
+
+	//领域下拉框改变时动态的改变下方内容中的显示
+	function changeContentOnAreaSelect(param) {
+		var url = "/workbench/apEditGroups/changeContentByAreaId";
+		$.ajax({
+			url: url,
+			dataType: "json",
+			data: param,
+			type: "post",
+			contentType: "application/json",
+			success: function(rtn) {
+				var str = [];
+				$("#group_list").empty();
+				$.each(rtn,
+				function(i, item) {
+					str.push('<div class="container-fluid"><div class="row row-fluid outrow">' + '<div class="col-sm-6 col-lg-3 outrowtitle">' + i + '</div></div>' + getItem(item) + '</div>'
+
+					);
+				});
+				$("#group_list").append(str);
+				isCheck();
+				//checkAssignedApp();
+			},
+			error: function(rtn) {
+				/*dialog({
+					title: "提示",
+					content: "改变领域选择时更新主内容出错！",
+					cancel: false,
+					ok: function() {}
+				}).show();*/
+			}
+		});
+	}
+
+	//领域下拉框改变动态的改变属于领域的分组的信息
+	function changeGroupOnAreaSelect(param) {
+		var url = "/workbench/apEditGroups/listGroupByAreaId";
+		$.ajax({
+			url: url,
+
+			dataType: "json",
+			data: param,
+			type: "post",
+			contentType: "application/json",
+			success: function(rtn) {
+				var str = [];
+				$("#group-menu").empty();
+				str.push("<option selected value='all'>全部分组</option>");
+				$.each(rtn,
+				function(i, item) {
+					str.push('<option value="' + item.id + '">' + item.name + '</option>');
+					$("#group-menu").html(str.join(" "));
+				});
+			},
+			error: function(rtn) {
+				dialog({
+					title: "提示",
+					content: "查询角已拥有的应用失败！",
+					cancel: false,
+					ok: function() {}
+				}).show();
+				alert("改变领域选择时分组下拉列表更新出错！");
+			}
+		});
+	}
+	//根据小应用的名字进行查询
+	function queryByAppName() {
+		$(".btn.btn-default").on('click',
+		function() {
+			//加入过滤条件
+			var filters = $('.form-inline.app-select option:selected');
+			var areaId = filters[0].value;
+			var groupId = filters[1].value;
+			var userId = cookieOperation.get('_A_P_userId');
+			var appName = $("#searchApp").val();
+			data = {
+				userid: userId,
+				appname: appName,
+				area: areaId,
+				group: groupId
+			};
+			var params = JSON.stringify(data);
+			$.ajax({
+				url: "/workbench/apEditGroups/queryApps",
+				dataType: "json",
+				data: params,
+				type: "post",
+				contentType: "application/json",
+				success: function(rtn) {
+					var str = [];
+					$("#group_list").empty();
+					$.each(rtn,
+					function(i, item) {
+						str.push('<div class="container-fluid"><div class="row row-fluid outrow">' + '<div class="col-sm-6 col-lg-3 outrowtitle">' + i + '</div></div>' + getItem(item) + '</div><br/>'
+
+						);
+					});
+					$("#group_list").append(str);
+					isCheck();
+				},
+				error: function() {
+					console.log("failtrue");
+				}
+			});
+		});
+	}
+	//根据groupId返回areaId
+	function getAreaIdByGroup(groupId) {
+		$.ajax({
+			url: "/workbench/apEditGroups/getAreaIdByGroup?groupId=" + groupId,
+			dataType: "json",
+			type: "get",
+			contentType: "application/json",
+			success: function(rtn) {
+				console.log(rtn.areaId);
+				$('.form-inline.app-select').find("option[value=" + rtn.areaId + "]").attr("selected", true);
+			},
+			error: function() {
+				console.log("failtrue");
+			}
+		});
+	}
+});

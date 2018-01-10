@@ -1,0 +1,53 @@
+{
+	"rows": [
+		{
+			"id": "9",
+			"systemCode": "XR",
+			"systemName": "消费金融系统",
+			"systemIconCls": "iconfont icon-xiaofei",
+			"systemSeqnum": 91,
+			"created": "2016-05-25 10:26:19",
+			"creator": "admin",
+			"modified": "2017-04-21 21:57:10",
+			"modifier": "admin",
+			"remark": "",
+			"expand1": "",
+			"expand2": "",
+			"expand3": "",
+			"expand4": "",
+			"expand5": "",
+			"delState": 0,
+			"systemUrl": "https://www.baidu.com/?tn=80035161_1_dg",
+			"checked": false,
+			"systemVisible": 0,
+			"systemPortalIconStyle": "/misc/img/index/xfjr.png",
+			"tenantIds": null,
+			"systemDeviceType": null
+		}, {
+			"id": "8",
+			"systemCode": "DB",
+			"systemName": "融资担保系统",
+			"systemIconCls": "iconfont icon-danbao",
+			"systemSeqnum": 8,
+			"created": "2016-05-25 10:26:19",
+			"creator": "admin",
+			"modified": "2017-03-28 21:48:25",
+			"modifier": "admin",
+			"remark": "",
+			"expand1": "",
+			"expand2": "",
+			"expand3": "",
+			"expand4": "",
+			"expand5": "",
+			"delState": 0,
+			"systemUrl": "",
+			"checked": false,
+			"systemVisible": 1,
+			"systemPortalIconStyle": "/misc/img/index/rzdb.png",
+			"tenantIds": null,
+			"systemDeviceType": null
+		}
+	],
+	"total": 16,
+	"footer": null
+}

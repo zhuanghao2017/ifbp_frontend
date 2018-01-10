@@ -1,0 +1,132 @@
+{
+  "row":[{
+  	"label": "全部应用",
+  	"count": "NaN",
+    "state":"0",
+  	"style": {
+
+       "width":"21%"
+  	}
+  },{
+  	"label": "逾期应用",
+  	"count": "NaN",
+    "state":"1",
+  	"style": {
+   "width":"21%"
+  	}
+  },{
+  	"label": "用户总数",
+  	"count": "NaN",
+    "state":"2",
+  	"style": {
+  	 "width":"21%"
+  	}
+  },{
+  	"label": "待支付订单",
+  	"count": "NaN",
+    "state":"3",
+  	"style": {
+  	   "width":"21%"
+  	}
+  }],
+  "tabList":{
+  	"label": "流程中心",
+  	"style": {
+    "width":"45%",
+		"height":"320px",
+      "margin": "22px",
+      "padding": "0px"
+  	},
+  	"default": "todo",
+  	"tabs": [{
+  	  "label": "待办",
+  	  "path": "todo",
+  	  "list": [[{
+  	    "label": "现场催收流程13430"
+  	  },{
+  	    "label": "现场催收流程13431"
+  	  },{
+  	    "label": "现场催收流程13432"
+  	  }],[{
+  	    "label": "金府-2017-05-25"
+  	  },{
+  	    "label": "吴桐-2017-05-26"
+  	  },{
+  	    "label": "辛忠-2017-05-28"
+  	  }]]
+  	},{
+  	  "label": "已办",
+  	  "path": "done",
+  	  "list": [[{
+  	    "label": "现场催收流程12430"
+  	  },{
+  	    "label": "现场催收流程12431"
+  	  },{
+  	    "label": "现场催收流程12432"
+  	  }],[{
+  	    "label": "朱杰-2017-04-25"
+  	  },{
+  	    "label": "张敏-2017-04-26"
+  	  },{
+  	    "label": "王帅-2017-04-28"
+  	  }]]
+  	}]
+  },
+  "focusList":{
+  	"label": "重点关注客户",
+  	"style": {
+    "width":"45%",
+			"height":"320px",
+      "margin": "22px",
+      "padding": "0px"
+  	},
+  	"list": [[{
+  	    "label": "小桔科技"
+  	  },{
+  	    "label": "河南农机"
+  	  },{
+  	    "label": "北京银行"
+  	  }],[{
+  	    "label": "逾期65天"
+  	  },{
+  	    "label": "逾期59天"
+  	  },{
+  	    "label": "逾期57天"
+  	  }],[{
+  	    "label": "欠款35625.62元"
+  	  },{
+  	    "label": "欠款62343.62元"
+  	  },{
+  	    "label": "欠款89723.62元"
+  	  }]]
+  	},
+  	"manageList":{
+  	"label": "部门管理制度",
+  	"style": {
+    "width":"45%",
+			"height":"320px",
+      "margin": "22px",
+      "padding": "0px"
+  	},
+  	"list": [[{
+  	    "label": "催收专员工作职责、制度"
+  	  },{
+  	    "label": "催收考核管理制度"
+  	  }]]
+  	},
+  	"echarts":{
+  	"label": "逾期率同比、环比情况图",
+  	"style": {
+			"width":"45%",
+				"height":"320px",
+      "margin": "22px",
+      "padding": "0px"
+  	},
+  	"chartStyle": {
+      "width": "100%",
+     	"height":"270px",
+			 "padding-right":"20px"
+  	},
+  	"option": {"tooltip":{"trigger":"axis"},"legend":{"data":["2014","2015","2016"]},"grid":{"left":"3%","right":"4%","bottom":"3%","containLabel":true},"xAxis":{"type":"category","boundaryGap":false,"data":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]},"yAxis":{"type":"value","axisLabel":{"formatter":"{value} %"}},"series":[{"name":"2014","type":"line","stack":"2014","data":[5.3,6.3,6,6.1,6.4,6.4,7],"itemStyle":{"normal":{"label":{"show":true,"positiong":"top","formatter":"{c}%"}}}},{"name":"2015","type":"line","stack":"2015","data":[2.6,2.7,2.7,2.7,2.9,3.5,3.7,3.4,3.8,4.5,5.2,4.5],"itemStyle":{"normal":{"label":{"show":true,"positiong":"top","formatter":"{c}%"}}}},{"name":"2016","type":"line","stack":"2016","data":[0.7,1,0.9,1,1,1.2,1.4,1.6,1.9,2.3,2.4,2.6],"itemStyle":{"normal":{"label":{"show":true,"positiong":"top","formatter":"{c}%"}}}}]}
+  	}
+}

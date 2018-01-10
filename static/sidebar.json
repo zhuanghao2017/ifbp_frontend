@@ -1,0 +1,42 @@
+{
+  "status" : 1,
+  "data" : [ {
+    "location" : "pages/default/index.js",
+    "name" : "首页",
+    "menustatus" : "Y",
+    "children" : null,
+    "icon" : "pt-shouye",
+    "target" : "wbalone",
+    "openview" : "newpage",
+    "urltype" : "plugin",
+    "id" : "/index",
+    "isDefault" : null,
+    "licenseControlFlag" : 0
+  }, {
+    "location" : "pages/app/appcenter/index.js",
+    "name" : "融资租赁",
+    "menustatus" : "Y",
+    "children" : null,
+    "icon" : "menu",
+    "target" : "wbalone",
+    "openview" : "curnpage",
+    "urltype" : "plugin",
+    "id" : "/finLease",
+    "isDefault" : null,
+    "licenseControlFlag" : 1
+  }, {
+    "location" : "pages/app/appcenter/index.js",
+    "name" : "基础设置",
+    "menustatus" : "Y",
+    "children" : null,
+    "icon" : "menu",
+    "target" : "wbalone",
+    "openview" : "curnpage",
+    "urltype" : "plugin",
+    "id" : "/settings",
+    "isDefault" : null,
+    "licenseControlFlag" : 1
+  }
+  ],
+  "msg" : "操作成功！"
+}

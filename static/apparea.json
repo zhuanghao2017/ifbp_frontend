@@ -1,0 +1,50 @@
+{
+  "status" : 1,
+  "msg" : "success",
+  "data" : [ {
+    "value" : "门户",
+    "label" : "门户",
+    "children" : [ ]
+  }, {
+    "value" : "工作台",
+    "label" : "工作台",
+    "children" : [ ]
+  }, {
+    "value" : "动态建模",
+    "label" : "动态建模",
+    "children" : [ {
+      "value" : "流程中心",
+      "label" : "流程中心",
+      "path" : null,
+      "children" : [ {
+        "value" : "任务中心",
+        "label" : "任务中心",
+        "path" : "/ifr/ifbp-eiap-bpm-service$flowTask-index.html?language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-xitong "
+      } ]
+    }, {
+      "value" : "编码规则",
+      "label" : "编码规则",
+      "path" : null,
+      "children" : [ {
+        "value" : "编码映射",
+        "label" : "编码映射",
+        "path" : "/ifr/iuap-saas-billcode-service$mappingindex.html?language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-bianmaguiyingshe "
+      } ]
+    }, {
+      "value" : "消息管理",
+      "label" : "消息管理",
+      "path" : null,
+      "children" : [ {
+        "value" : "消息中心",
+        "label" : "消息中心",
+        "path" : "/lgc/iuap-saas-message-center$static$workbc$msgctn-flow",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-xiaoxizhongxin "
+      } ]
+    } ]
+  } ]
+}

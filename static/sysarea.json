@@ -1,0 +1,221 @@
+{
+  "status" : 1,
+  "msg" : "success",
+  "data" : [ {
+    "value" : "门户",
+    "label" : "门户",
+    "children" : [ {
+      "value" : "门户配置",
+      "label" : "门户配置",
+      "path" : null,
+      "children" : [ {
+        "value" : "小部件管理",
+        "label" : "小部件管理",
+        "path" : "/lgc/js$ext$widget",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-thewidget "
+      }, {
+        "value" : "布局管理",
+        "label" : "布局管理",
+        "path" : "/lgc/js$ext$layoutList",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-bujuguanli "
+      } ]
+    } ]
+  }, {
+    "value" : "工作台",
+    "label" : "工作台",
+    "children" : [ {
+      "value" : "功能管理",
+      "label" : "功能管理",
+      "path" : null,
+      "children" : [ {
+        "value" : "小应用管理333",
+        "label" : "小应用管理333",
+        "path" : "/lgc/pages$app$appList$index",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-application "
+      }, {
+        "value" : "菜单设置",
+        "label" : "菜单设置",
+        "path" : "/lgc/pages$workbench$sideMenu$index",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-menu "
+      } ]
+    }, {
+      "value" : "安全配置",
+      "label" : "安全配置",
+      "path" : null,
+      "children" : [ {
+        "value" : "密码策略管理",
+        "label" : "密码策略管理",
+        "path" : "/lgc/pages$pwPolicy$index",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-mimacelve "
+      } ]
+    }, {
+      "value" : "日志管理",
+      "label" : "日志管理",
+      "path" : null,
+      "children" : [ {
+        "value" : "业务日志",
+        "label" : "业务日志",
+        "path" : "/ifr/iuap-saas-busilog-service?language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-yewurizhi "
+      }, {
+        "value" : "安全日志",
+        "label" : "安全日志",
+        "path" : "/ifr/iuap-saas-securitylog-service?language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-anquanrizhi "
+      } ]
+    }, {
+      "value" : "工作台配置",
+      "label" : "工作台配置",
+      "path" : null,
+      "children" : [ {
+        "value" : "工作台设计",
+        "label" : "工作台设计",
+        "path" : "/lgc/pages$workbench$DTdesign$index.js",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-icon4 "
+      } ]
+    } ]
+  }, {
+    "value" : "动态建模",
+    "label" : "动态建模",
+    "children" : [ {
+      "value" : "组织管理",
+      "label" : "组织管理",
+      "path" : null,
+      "children" : [ {
+        "value" : "业务单元",
+        "label" : "业务单元",
+        "path" : "/lgc/pages$organization$viewmodel",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-liuchengdingyi "
+      }, {
+        "value" : "部门",
+        "label" : "部门",
+        "path" : "/lgc/pages$dept$viewmodel",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-bumen "
+      } ]
+    }, {
+      "value" : "权限管理",
+      "label" : "权限管理",
+      "path" : null,
+      "children" : [ {
+        "value" : "用户管理",
+        "label" : "用户管理",
+        "path" : "/lgc/pages$app$userlist$index",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-adminmanagement "
+      }, {
+        "value" : "角色管理",
+        "label" : "角色管理",
+        "path" : "/lgc/pages$app$rolelist$index",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-rolemanagement "
+      }, {
+        "value" : "角色分配用户",
+        "label" : "角色分配用户",
+        "path" : "/lgc/pages$workbench$roleConUsers$index",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-jiaosefenpeiyonghu "
+      }, {
+        "value" : "小应用授权",
+        "label" : "小应用授权",
+        "path" : "/lgc/$wbalone$data:layout$rolemgr",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-smallauthorization "
+      }, {
+        "value" : "小部件授权",
+        "label" : "小部件授权",
+        "path" : "/lgc/$wbalone$data:layout$rolemgrwidget",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-xiaobujianshouquan "
+      }, {
+        "value" : "数据权限",
+        "label" : "数据权限",
+        "path" : "/lgc/pages$workbench$roleAuth$index",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-shujuquanxian "
+      } ]
+    }, {
+      "value" : "流程中心",
+      "label" : "流程中心",
+      "path" : null,
+      "children" : [ {
+        "value" : "流程模型",
+        "label" : "流程模型",
+        "path" : "/ifr/ifbp-eiap-bpm-service$index.html?language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-liuchengdingyi "
+      }, {
+        "value" : "流程监控",
+        "label" : "流程监控",
+        "path" : "/ifr/ifbp-eiap-bpm-service$instindex.html?language=zh_CN&language=zh_CN&language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-liuchengjiankong "
+      } ]
+    }, {
+      "value" : "编码规则",
+      "label" : "编码规则",
+      "path" : null,
+      "children" : [ {
+        "value" : "编码规则定义",
+        "label" : "编码规则定义",
+        "path" : "/ifr/iuap-saas-billcode-service$index.html?language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-bianmaguizedingyi "
+      } ]
+    }, {
+      "value" : "模板管理",
+      "label" : "模板管理",
+      "path" : null,
+      "children" : [ {
+        "value" : "UI模板设计",
+        "label" : "UI模板设计",
+        "path" : "/ifr/uitemplate_web$?md_component_id=5418cf4d-4262-4e68-bdaa-f18dcf8c3000&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-UImobansheji "
+      }, {
+        "value" : "UI模板管理",
+        "label" : "UI模板管理",
+        "path" : "/ifr/uitemplate_web/uitemplate_ctr$uitemplate_design_ctr$manage?language=zh_CN&language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-UImobanguanli "
+      } ]
+    }, {
+      "value" : "消息管理",
+      "label" : "消息管理",
+      "path" : null,
+      "children" : [ {
+        "value" : "消息通道配置",
+        "label" : "消息通道配置",
+        "path" : "/ifr/iuap-saas-message-center$message-manage.html?language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-xiaoxitongdaopeizhi "
+      }, {
+        "value" : "消息模板管理",
+        "label" : "消息模板管理",
+        "path" : "/lgc/$iuap-saas-message-center$static$workbc$message-template-manage.js",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-xiaoximobanguanli "
+      } ]
+    }, {
+      "value" : "后台调度任务",
+      "label" : "后台调度任务",
+      "path" : null,
+      "children" : [ {
+        "value" : "调度任务管理",
+        "label" : "调度任务管理",
+        "path" : "/ifr/iuap-saas-dispatch-service?language=zh_CN&language=zh_CN&language=zh_CN",
+        "component" : "组件",
+        "appIcon" : "iconfont icon-tiaodurenwuguanli "
+      } ]
+    } ]
+  } ]
+}

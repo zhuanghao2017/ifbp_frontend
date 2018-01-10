@@ -1,0 +1,500 @@
+<template>
+  <div class="list-panel">
+    <div class="title-header">
+      <h2 class="name" v-if="page === 'info'">员工信息</h2>
+      <h2 class="name" v-if="page === 'detail' ">员工信息设置</h2>
+      <h2 class="name" v-if="page === 'add' ">新增员工</h2>
+    </div>
+    <!--search-->
+    <div id="search-container">
+      <div class="fl">
+        <el-button type="primary" v-if="page === 'info'" @click="addUserBtn">新增</el-button>
+
+        <el-button type="primary" v-if="page === 'add' && isEdit" @click="addUser">保存并新增</el-button>
+
+        <el-button type="primary" v-if="page === 'detail' && !isEdit" @click="set">修改</el-button>
+        <el-button type="primary" v-if="page === 'detail' && isEdit" @click="confirm">确定</el-button>
+        <el-button type="primary" v-if="page === 'detail' && isEdit" @click="cancel">取消</el-button>
+
+        <el-button type="primary" v-if="page === 'detail' || page === 'add'" @click="backInfo">返回</el-button>
+      </div>
+      <div class="fr" v-if="page === 'info'">
+        <el-button type="text" @click="showSearch">
+          高级搜索
+          <i class="el-icon-arrow-down" v-if="this.isHide"></i>
+          <i class="el-icon-arrow-up" v-if="!this.isHide"></i>
+        </el-button>
+      </div>
+    </div>
+
+    <div id="advanced-search" :class="{hide: isHide}">
+      <dl class="sort">
+        <dd class="u-row">
+          <div class="outSel u-col-lg-3 u-col-md-4 u-col-sm-6">
+            <label class="seLab">用户编码：</label>
+            <input type="text" placeholder="请输入编码">
+          </div>
+          <div class="outSel u-col-lg-3 u-col-md-4 u-col-sm-6">
+            <label class="seLab">手机：</label>
+            <input type="text" placeholder="请输入手机号码">
+          </div>
+          <div class="outSel u-col-lg-3 u-col-md-4 u-col-sm-6">
+            <label class="seLab">用户名称：</label>
+            <input type="text" placeholder="请输入名称">
+          </div>
+          <div class="outSel u-col-lg-3 u-col-md-4 u-col-sm-6">
+            <label class="seLab">启用条件：</label>
+            <span class="styled-select">
+                <select id="s-state">
+                    <option value="1">启用</option>
+                    <option value="0">停用</option>
+                    <option selected="" value="">全部</option>
+                </select>
+                <span class="iconfont icon-arrow-down"></span>
+            </span>
+          </div>
+          <div class="clearfix"></div>
+        </dd>
+      </dl>
+    </div>
+
+    <!-- 用户信息列表 -->
+    <div id="staff-list" v-if="page === 'info'">
+      <!--list-->
+      <yon-list :tableData="tableData" :columns="columns" v-if='tableData.length'></yon-list>
+      <!--pagination-->
+      <el-pagination
+        id="staff-pagination"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[12, 20, 30, 40]"
+        :page-size="size"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="totalElements">
+      </el-pagination>
+    </div>
+
+    <!-- 用户信息详情 -->
+    <div id="staff-detail" v-if="page === 'detail' || page === 'add'">
+      <uitemplate :pkTemp="pk_temp"
+                  ref="detail"
+                  @change="changeHandle"
+                  :isEdit="isEdit"
+                  :templateValue="currentValue">
+
+      </uitemplate>
+    </div>
+
+
+  </div>
+</template>
+<script>
+  import list from './editList';
+  //  import detail from './staff-detail.vue';
+  import uitemplate from '../organization/ui-template/src/template.vue';
+  import json from './test.json';
+  export default {
+    data(){
+      return {
+        page: 'info',
+        isHide: true,
+        tableData: '',
+        columns: '',
+        totalPages: '',
+        totalElements: 10,
+        size: 12,
+        formData: {},
+        currentPage: 1,
+        pk_temp:'5c9476ae-e759-46dd-be24-b9b45858ce13',
+        originalValue: '',
+        currentValue: '',
+        isEdit: false
+      };
+    },
+    created(){
+      this.columns = [{
+        label: '照片',
+        prop: 'avator'
+      }, {
+        label: '人员编码',
+        prop: 'login_name'
+      }, {
+        label: '姓名',
+        prop: 'name'
+      },
+//        {
+//        label: '人员类别',
+//        prop: 'psnclname'
+//      },
+        {
+          label: '所属组织',
+          prop: 'organization_name'
+        },
+        {
+          label: '手机',
+          prop: 'phone'
+        },
+        {
+          label: '邮箱',
+          prop: 'email'
+        }
+      ];
+      this.request();
+      /**
+       *   单个用户详情
+       **/
+      this.$on('callStaff', (id) => {
+        this.$http({
+          url: '/wbalone/user/getUserById/' + id,
+          method: 'get'
+        }).then((res) => {
+          if (res.data.success == true) {
+            this.page = 'detail';
+            console.log(res);
+            console.log(this);
+          }
+          this.originalValue = res.data.data;
+          this.currentValue = JSON.parse(JSON.stringify(this.originalValue));
+          console.log("=----=-=-=-=-=-=-=-=-=-=-=-==-=-=");
+          console.log(this.currentValue);
+          console.log("=----=-=-=-=-=-=-=-=-=-=-=-==-=-=");
+        });
+      });
+      /**
+       *   删除用户
+       **/
+      this.$on('delStaff', (id) => {
+        this.$http({
+          url: '/wbalone/user/deleteById/' + id,
+          method: 'get'
+        }).then((res) => {
+          if (res.data.success == true) {
+            alert(res.data.data);
+            this.page = 'info';
+            this.request();
+          }
+        });
+      });
+
+    },
+    components: {
+      'yon-list': list,
+      'uitemplate':  uitemplate,
+    },
+    methods: {
+      /**
+       *   list
+       **/
+      request(n, s) {
+        if(n===undefined){
+          var url = '/wbalone/user/list';
+        } else {
+          var url = '/wbalone/user/list?pn='+ n +'&ps='+s;
+        }
+        this.$http({
+          url: url,
+          method: 'get',
+          dataType: 'json'
+        }).then((res) => {
+          res = res.data.data;
+          this.tableData = res.content;
+//          console.log(this.tableData);
+          this.totalElements = res.totalElements ;       // 总条数
+          this.size = res.size;                          // 每页的条数
+        }).catch((res) => {
+          this.currentValue = json.data.content;
+        });
+      },
+      handleSizeChange(val) {
+        this.request(1, val);
+      },
+      handleCurrentChange(val) {
+        this.request(val, this.size);
+      },
+      /**
+       *  一些控制页面状态的方法
+       *  都在按钮上绑着
+       **/
+
+      // 高级搜索
+      showSearch() {
+        this.isHide = !this.isHide;
+      },
+      // 返回list页面
+      backInfo() {
+        this.page = 'info';
+        this.isEdit = false;
+        this.request();
+      },
+      // 详情变为可编辑态
+      set() {
+        this.isEdit = true;
+      },
+      /**
+       *  修改用户
+       *
+       **/
+      // 确认修改
+      confirm(){
+        this.isEdit = false;
+        this.$http({
+          url:'/wbalone/user/save',
+          method: 'post',
+          data: this.currentValue
+        }).then((res) => {
+          if (res.data.success) {
+            alert(res.data.data);
+            this.originalValue = JSON.parse(JSON.stringify(this.currentValue));
+          } else {
+            alert(res.data.data);
+          }
+        });
+      },
+      // 取消修改
+      cancel(){
+        this.isEdit = false;
+//        this.currentValue = JSON.parse(JSON.stringify(this.originalValue));
+        //this.$refs.tpl.setValue(this.originalValue);
+      },
+
+      /**
+       *  添加用户
+       *
+       **/
+      addUserBtn() {
+        this.page = 'add';
+        this.isEdit = true;
+        console.log(this.currentValue);
+        this.currentValue = {};
+      },
+      addUser() {
+        var url = '/wbalone/user/save';
+        this.$http({
+          url: url,
+          method: 'post',
+          data: this.currentValue,
+          dataType: 'json'
+        }).then((res) => {
+          if (res.data.success) {
+            alert("添加成功！");
+            this.page = 'info';
+            this.request();
+          } else {
+            alert(res.data.error.errorMessage);
+          }
+
+        }).catch((res) => {
+          this.currentValue = json.data.content;
+        });
+      },
+      changeHandle(index,value){
+        console.log(index,value);
+        this.currentValue[index] = value;
+      },
+    },
+    watch: {
+      originalValue: {
+        handler(){
+        },
+        deep: true
+      },
+      currentValue: {
+        handler(){
+        },
+        deep: true
+      }
+    }
+  };
+
+</script>
+<style>
+  #search-container{
+    height: 56px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e3e3e3;
+  }
+  #advanced-search{
+    display: block;
+    height: 56px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e3e3e3;
+    position: relative;
+  }
+  #advanced-search.hide{
+    display: none;
+    transition: all .5s ease;
+  }
+  #staff-list, #staff-detail{
+    margin-top: 20px;
+    padding: 20px;
+    background: #ffffff;
+  }
+  #staff-pagination{
+    float: right;
+    margin: 20px 20px 0;
+  }
+</style>
+
+
+
+
+
+<template>
+  <div class="list-panel">
+    <div class="title-header">
+      <h2 class="name">员工信息设置</h2>
+    </div>
+    <!--search-->
+    <div id="search-container">
+      <div class="fl">
+        <el-button type="primary" v-if="!isEdit" @click="set">修改</el-button>
+        <el-button type="primary" v-if="isEdit" @click="confirm">确定</el-button>
+        <el-button type="primary" v-if="isEdit" @click="cancel">取消</el-button>
+
+        <el-button type="primary" @click="backInfo">返回</el-button>
+      </div>
+    </div>
+
+    <!-- 用户信息详情 -->
+    <div id="staff-detail">
+      <el-template :pkTemp="pk_temp"
+                  ref="detail"
+                  @change="changeHandle"
+                  :isEdit="isEdit"
+                  :templateValue="currentValue">
+
+      </el-template>
+    </div>
+
+
+  </div>
+</template>
+<script>
+  export default {
+    data(){
+      return {
+        isHide: true,
+        formData: {},
+        currentPage: 1,
+        pk_temp: '5c9476ae-e759-46dd-be24-b9b45858ce13',
+        originalValue: '',
+        currentValue: '',
+        isEdit: true
+      };
+    },
+    created(){
+      this.request();
+    },
+    components: {
+     // uitemplate,
+    },
+    methods: {
+      /**
+       *   单个用户详情
+       **/
+      request() {
+        this.$http({
+          url: '/wbalone/user/getUserById/' + this.$root.$router.currentRoute.params.id,
+          method: 'get'
+        }).then((res) => {
+          if (res.data.success) {
+//            console.log(res);
+//            console.log(this);
+            this.originalValue = res.data.data;
+            this.currentValue = JSON.parse(JSON.stringify(this.originalValue));
+          } else {
+              alert(res.data.data);
+          }
+        });
+      },
+      /**
+       *  一些控制页面状态的方法
+       *  都在按钮上绑着
+       **/
+      // 返回list页面
+      backInfo() {
+        location.hash = '/staff';
+      },
+      // 详情变为可编辑态
+      set() {
+        this.isEdit = true;
+      },
+      /**
+       *  修改用户
+       *
+       **/
+      // 确认修改
+      confirm(){
+        this.isEdit = false;
+        console.log(this.currentValue);
+        this.$http({
+          url:'/wbalone/user/save',
+          method: 'post',
+          data: this.currentValue
+        }).then((res) => {
+          if (res.data.success) {
+            alert(res.data.data);
+            this.originalValue = JSON.parse(JSON.stringify(this.currentValue));
+          } else {
+            alert(res.data.data);
+          }
+        });
+      },
+      // 取消修改
+      cancel(){
+        this.isEdit = false;
+//        this.currentValue = JSON.parse(JSON.stringify(this.originalValue));
+        //this.$refs.tpl.setValue(this.originalValue);
+      },
+
+      changeHandle(index,value){
+        console.log(index,value);
+      },
+    },
+    watch: {
+      originalValue: {
+        handler(){
+        },
+        deep: true
+      },
+      currentValue: {
+        handler(){
+        },
+        deep: true
+      }
+    }
+  };
+
+</script>
+<style>
+  #search-container{
+    height: 56px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e3e3e3;
+  }
+  #advanced-search{
+    display: block;
+    height: 56px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e3e3e3;
+    position: relative;
+  }
+  #advanced-search.hide{
+    display: none;
+    transition: all .5s ease;
+  }
+  #staff-list, #staff-detail{
+    margin-top: 20px;
+    padding: 20px;
+    background: #ffffff;
+  }
+  #staff-pagination{
+    float: right;
+    margin: 20px 20px 0;
+  }
+</style>

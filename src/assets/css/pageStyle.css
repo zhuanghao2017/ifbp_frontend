@@ -1,0 +1,85 @@
+#search-container {
+  height: 56px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e3e3e3;
+}
+#advanced-search {
+  display: block;
+  height: 56px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e3e3e3;
+  position: relative;
+}
+#advanced-search.hide {
+  display: none;
+  transition: all .5s ease;
+}
+#staff-list,
+#staff-detail {
+  margin-top: 20px;
+  background: #ffffff;
+  position: relative;
+}
+#advanced-search .el-col {
+  text-align: center;
+}
+#staff-list .yon-uitemplate {
+  margin: 20px 0;
+}
+/* 重置表格字体及表头背景，参考友人才 */
+#staff-list .el-table__header th {
+  font-size: 15px;
+  font-weight: 400;
+  color: #333;
+}
+
+#staff-list .el-table__body .cell {
+  font-size: 13px;
+  font-weight: normal;
+  color: #333;
+}
+#staff-list .el-table thead tr,
+#staff-list .el-table thead tr th {
+  background-color: #eee;
+}
+#staff-list .el-table__footer-wrapper thead div,
+#staff-list .el-table__header-wrapper thead div {
+  background-color: #eee;
+  color: #333;
+}
+/* 重置分页组件样式 */
+input.el-pagination__editor {
+  height: 28px;
+}
+.el-pager li.active {
+  background-color: #1BAEDE;
+  border-color: #1BAEDE;
+}
+.el-select-dropdown__item.selected {
+  background-color: #1BAEDE;
+}
+.el-select-dropdown__item.selected.hover {
+  background-color: #00A5E3;
+}
+.el-pagination .btn-prev {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.el-pagination .btn-next {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.el-pagination span.el-pagination__total,
+.el-pagination__sizes .el-input .el-input__inner,
+.el-pagination span.el-pagination__jump {
+  font-size: 12px;
+}
+.el-pagination .el-select .el-input {
+  width: 100px;
+}
+/* 列表操作样式修改 */
+#staff-list tr  .el-button--text {
+  margin: 0 0.3125rem;
+}
